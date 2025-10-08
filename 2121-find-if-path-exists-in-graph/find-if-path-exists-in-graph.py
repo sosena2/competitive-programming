@@ -1,20 +1,24 @@
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        # creating the adjency list
-        adj_list = defaultdict(list)
+        # creating the list
+        graph = defaultdict(list)
         for u, v in edges:
-            adj_list[u].append(v)
-            adj_list[v].append(u)
+            graph[u].append(v)
+            graph[v].append(u)
+
         visited = set()
-        def dfs(idx):
-            if idx == destination:
+
+        def dfs(node):
+            if node == destination:
                 return True
-            visited.add(idx)
-            for neighbour in adj_list[idx]:
+            visited.add(node)
+
+            for neighbour in graph[node]:
                 if neighbour not in visited:
                     if dfs(neighbour):
                         return True
             return False
+
         return dfs(source)
         
 
