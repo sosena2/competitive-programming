@@ -1,12 +1,17 @@
 class Solution:
     def mySqrt(self, x: int) -> int:
-        # brute 
-        if x == 0:
-            return 0
-        ans = 1
-        for i in range(1, x+1):
-            if i * i <= x:
-                ans = i 
+        # binary search
+        ans = 0
+        low = 0
+        high = x - 1
+        while low <= high:
+            mid = (low + high) // 2
+            val = mid + 1
+            if val * val <= x:
+                ans = val
+                low = mid + 1
             else:
-                break
+                high = mid - 1
         return ans
+
+        
