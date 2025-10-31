@@ -2,25 +2,36 @@ class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         n = len(grid)
         m = len(grid[0])
-        directions = [(1,0), (0, 1), (-1, 0), (0, -1)]
 
-        def inbound(row, col):
-            return 0 <= row < len(grid) and 0 <= col < len(grid[0])
+        def inbound(r, c):
+            return 0 <= r < n and 0 <= c < m
+
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+
         visited = set()
-
-        def dfs(r, c):
-            visited.add((r, c))
-            for rw, cl in directions:
-                nw_r = r + rw
-                nw_cl = c + cl
-                if inbound(nw_r, nw_cl) and grid[nw_r][nw_cl] == '1' and  (nw_r, nw_cl) not in visited:
-                    dfs(nw_r, nw_cl)
-
+        queue = deque()
         count = 0
-        for row in range(n):
-            for col in range(m):
-                if grid[row][col] == "1" and (row, col) not in visited:
-                    dfs(row, col)
+        for i in range(n):
+            for j in range(m):
+                if grid[i][j] == '1' and (i, j) not in visited:
+                    queue.append((i, j))
+                    visited.add((i, j))
                     count += 1
+
+                while queue:
+                    rw, cl = queue.popleft()
+                    for row, col in directions:
+                        new_rw = row + rw
+                        new_cl = col + cl
+                        if inbound(new_rw, new_cl) and (new_rw, new_cl) not in visited and grid[new_rw][new_cl] == '1':
+
+                            visited.add((new_rw, new_cl))
+                            queue.append((new_rw, new_cl))
+
         return count
 
+                
+
+
+
+            
