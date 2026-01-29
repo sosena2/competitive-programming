@@ -1,5 +1,7 @@
 class Solution:
     def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:
+        # time complexity : O(nlogn)
+        # space complexity: O(n)
         ans = []
         sorted_arr = sorted(arr)
         n = len(arr)
